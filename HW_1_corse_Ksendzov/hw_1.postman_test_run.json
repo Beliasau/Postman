@@ -1,0 +1,172 @@
+{
+	"id": "c118d1c4-9ad2-4301-b04e-89a5a32e1b3e",
+	"name": "group_#30",
+	"timestamp": "2022-06-19T13:02:03.539Z",
+	"collection_id": "20820839-72103887-fd4f-481f-87e6-242b9241e6d9",
+	"folder_id": 0,
+	"environment_id": "20820839-81f3419d-bb32-4e53-92c6-85f466c25bdb",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "1d07c745-d807-4565-93c3-02c40fd71c42",
+			"name": "EP_1",
+			"url": "http://162.55.220.72:5005/get_method?name=Alesandro&age=33",
+			"time": 86,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				86
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "5ba384d6-8849-4d61-9b66-f04add85aa14",
+			"name": "EP_2",
+			"url": "http://162.55.220.72:5005/user_info_3",
+			"time": 88,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				88
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a56232d0-d9eb-4453-8e0a-5254c8108a53",
+			"name": "EP_3",
+			"url": "http://162.55.220.72:5005/object_info_1?name=Alesandro&age=33&weight=90",
+			"time": 102,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				102
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "e3646482-c2ba-418d-a4a7-6a66cf3f72b4",
+			"name": "EP_4",
+			"url": "http://162.55.220.72:5005/object_info_2?name=Alesandro&age=33&salary=1000",
+			"time": 95,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				95
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "2d2b44a3-5c6c-4aab-8439-f8888b94c23d",
+			"name": "EP_5",
+			"url": "http://162.55.220.72:5005/object_info_3?name=Alesandro&age=33&salary=1000",
+			"time": 93,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				93
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "8f030594-08eb-4108-9f17-17ce9ea9bacc",
+			"name": "EP_6",
+			"url": "http://162.55.220.72:5005/object_info_4?name=Alesandro&age=33&salary=1000",
+			"time": 96,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				96
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "c57656a1-4e94-4106-9dbe-6010ab5f61a9",
+			"name": "EP_7",
+			"url": "http://162.55.220.72:5005/user_info_2",
+			"time": 85,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				85
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 645,
+	"collection": {
+		"requests": [
+			{
+				"id": "1d07c745-d807-4565-93c3-02c40fd71c42",
+				"method": "GET"
+			},
+			{
+				"id": "5ba384d6-8849-4d61-9b66-f04add85aa14",
+				"method": "POST"
+			},
+			{
+				"id": "a56232d0-d9eb-4453-8e0a-5254c8108a53",
+				"method": "GET"
+			},
+			{
+				"id": "e3646482-c2ba-418d-a4a7-6a66cf3f72b4",
+				"method": "GET"
+			},
+			{
+				"id": "2d2b44a3-5c6c-4aab-8439-f8888b94c23d",
+				"method": "GET"
+			},
+			{
+				"id": "8f030594-08eb-4108-9f17-17ce9ea9bacc",
+				"method": "GET"
+			},
+			{
+				"id": "c57656a1-4e94-4106-9dbe-6010ab5f61a9",
+				"method": "POST"
+			}
+		]
+	}
+}
