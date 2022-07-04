@@ -1,0 +1,20 @@
+парсинг- перевод сттроки JSON в обьект JavaScript
+конквертизация - обратный процесс парсингу
+let person = JSON.stringify(____)
+let person = String(____)
+
+
+Спарсить request:
+GET METHOD:
+var req_data = pm.request.url.query.toObject();
+
+POST METHOD:
+var req = request.data;
+let req = JSON.parse()
+
+
+Спарсить respons
+let resp = JSON.parse(ResponsBody)
+let resp = pm.response.JSON()
+
+
