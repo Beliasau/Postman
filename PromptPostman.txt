@@ -1,4 +1,4 @@
-парсинг- перевод сттроки JSON в обьект JavaScript
+парсинг- перевод строки JSON в обьект JavaScript
 конквертизация - обратный процесс парсингу
 let person = JSON.stringify(____)
 let person = String(____)
