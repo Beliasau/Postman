@@ -197,3 +197,182 @@ pm.expect([1,2,3]).to.include(3);
 pm.test(“Empty Array”, function(){
 pm.expect([2]).to.be.an(‘array’).that.is.empty;
 });
+
+
+
+-======================================================================================
+
+
+
+ПАРСИНГ
+
+// Спарсить response body в json.
+
+var jsonData = pm.response.json();
+// Спарсить request. (POST/GET) (переменные в Body - form-data)
+
+var req = request.data
+
+// Спарсить request. (POST/GET) (переменные в Body - raw(JSON))
+
+var req = JSON.parse(pm.request.body);
+
+//Спарсить request.(GET)
+
+var req_url = pm.request.url.query.toObject();
+
+
+
+
+
+//проверка схемы JSON
+
+var schema = {
+    "type": "object",
+    "required": [
+        "age",
+        "name",
+        "salary"
+    ],
+    "properties": {
+        "age": {
+            "type": "integer",
+            },
+        "salary": {
+            "type": "array",
+            "items": {
+                "anyOf": [{
+                    "type": "integer",
+                   },
+                {
+                    "type": "string",
+                }]
+            },
+        }
+    },
+};
+
+pm.test('Schema is valid', function () {
+    pm.expect(tv4.validate(jsonData, schema)).to.be.true;
+});
+
+//или (без первоначального парсинга response в переменную) + более распианные ошибки   
+
+pm.test('Schema is valid', function() {
+  pm.response.to.have.jsonSchema(schema);
+});
+
+
+
+
+
+
+// пример построения теста сравнения
+
+pm.test("Текстовка", function () {
+    pm.expect(jsonData.name).to.eql("Anna");
+});
+
+
+// сравнение
+
+.to.eql "="
+.to.below "<"  
+.to.above ">"
+
+
+// ожидание
+
+pm.expect
+
+
+
+// принадлежность к типу
+
+.to.be.a('number');
+
+
+// наличие значения
+
+to.have.property
+
+
+
+// статус в ответе 200 (например)
+
+pm.response.to.have.status(200)
+
+
+// вывод в консоль элемента по порядковому номеру (из списка) (в JSON это не сработает, т.к. JSON не нумеруем)
+
+console.log(jsonData.salary[0])
+environment.set
+environment.get
+
+
+
+// Создать в окружении переменную name
+
+pm.environment.set("name");
+
+
+// Создать в окружении переменную name и одновременно передать в нее переменную name из запроса URL
+
+pm.environment.set("name", req_url.name);
+
+
+
+//// получить из окружения переменную name
+
+pm.environment.get("name");
+
+
+
+// Написать цикл который выведет в консоль по порядку элементы списка из параметра salary. []-список
+
+var n = 0;
+while (n < (jsonData.salary).length) 
+{
+console.log(jsonData.salary[n]);
+n++
+}
+
+
+
+
+
+
+
+
+
+// Написать цикл который выведет в консоль по порядку элементы списка из параметра person. {}-JSON
+
+for (key in jsonData.person) {
+    console.log( key + ": " + jsonData.person[key])
+};
+
+
+
+
+// перевод в другой тип
+
+String(jsonData.age)
+Типы переменных JS
+*String
+*Number
+*Object (JSON)
+*Boolean
+
+*null
+*undefined
+*symbol
+*BigInt
+
+raw JSON (Там где String "")
+
+{
+    "name":"{{name}}",
+    "age":{{age}},
+    "salary":1000,
+    "auth_token":""
+}
