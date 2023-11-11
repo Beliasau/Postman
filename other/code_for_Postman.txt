@@ -376,3 +376,82 @@ raw JSON (Там где String "")
     "salary":1000,
     "auth_token":""
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=============================
+
+
+
+парсинг- перевод строки JSON в обьект JavaScript
+конквертизация - обратный процесс парсингу
+let person = JSON.stringify(____)
+let person = String(____)
+
+
+Спарсить request:
+GET METHOD:
+let req_data = pm.request.url.query.toObject();
+
+(POST/GET) METHOD:
+let req = request.data;         (если запрос отправляется в Body - form-data)
+let req = JSON.parse(pm.request.body);      (если запрос отправляется в Body - raw(JSON))
+
+
+
+Спарсить respons
+let resp = JSON.parse(ResponsBody)
+let resp = pm.response.json()
+
+
+
+
+============================================================
+
+
+Проверка структуры json в ответе.
+
+можно проверить через Tiny Validator либо Ajv JSON schema validator
+Ajv JSON schema validator не требует первоначального парсинга (let jsonData = pm.response.json();) и более подробно описывает ошибки
+Tiny Validator считается уже устаревшим
+
+
+
+
+Use Tiny Validator
+
+1. Спарсить json
+let respons = pm.response.json();
+
+2. создаем переменную schema
+в нее вставляем валидационную схему json, из респонса, из (https://jsonschema.net/app/schemas/360654) или других источников
+let shema = {...}
+
+3. выбераем снипет 
+Use Tiny Validator for Json Data
+убираем ненужные строки
+
+pm.test('tv4: Schema is valid', function () {
+    pm.expect(tv4.validate(respons, schema)).to.be.true;
+});
+
+
+
+
+
+Use Ajv JSON schema validator
+
+pm.test('Ajv: Schema is valid', function() {
+  pm.response.to.have.jsonSchema(schema);
+});
