@@ -1,106 +1,314 @@
-Переменные
-Коды для работы с окружением и переменными
 
-Установка переменных
-Глобальные переменные
-
-pm.globals.set('variable name', "value");
-Локальная переменная 
-
-var variable_name = value;
-Переменная среды
-
-pm.environment.set('variable_name' , 'value');
+парсинг- перевод строки JSON в обьект JavaScript
+конквертизация - обратный процесс парсингу
+let person = JSON.stringify(____)
+let person = String(____)
 
 
-Получение переменных
-Глобальные переменные
+Спарсить request:
+GET METHOD:
+let req_data = pm.request.url.query.toObject();
 
-pm.globals.get('variable_name');
-Переменная среды
-
-pm.environment.get('varibable_name');
-Переменная данных
-
-pm.iterationData.get('variable_name');
-Локальная переменная
-
-variable_name;
+(POST/GET) METHOD:
+let req = request.data;         (если запрос отправляется в Body - form-data)
+let req = JSON.parse(pm.request.body);      (если запрос отправляется в Body - raw(JSON))
 
 
-Очистка переменных
-Глобальные переменные (только одна)
 
-pm.globals.unset('variable_name');
-Глобальные переменные (все)
+Спарсить respons
+let resp = JSON.parse(ResponsBody)
+let resp = pm.response.json()
 
-pm.globals.clear();
-Переменная среды (только одна)
-
-pm.environment.unset('variable_name');
-Переменная среды (все)
-
-pm.environment.clear();
+Преобразовать тело ответа XML в объект JSON
+var jsonObject = xml2Json(responseBody);
 
 
-Ассерты
-Ответ
-Различные коды относящиеся к ответам запроса
 
-Ответ содержит строку
-проверить, что в теле ответа содержится определенная строка.
+============================================================
 
-pm.test("String found", function(){
 
-pm.expect(pm.response.text()).to.include("string you want to search");
 
+
+
+
+
+
+Снипеты
+
+Get an environment variable
+Получить переменную окружения
+pm.environment.get("variable_key");
+
+
+=========
+
+
+Get a global variable
+Получить глобальную переменную
+
+pm.globals.get("variable_key");
+=========
+
+
+Get a variable
+Получить переменную
+
+pm.variables.get("variable_key");
+=========
+
+
+Get a collection variable
+Получить переменную коллекции
+
+pm.collectionVariables.get("variable_key");
+=========
+
+
+Set an environment variable
+Установить переменную окружения
+
+pm.environment.set("variable_key", "variable_value");
+
+Создать в окружении переменную name и одновременно передать в нее переменную name из запроса URL
+pm.environment.set("name", req.name);
+
+
+=========
+
+
+Set a global variable
+Установить глобальную переменную
+
+pm.globals.set("variable_key", "variable_value");
+=========
+
+
+Set a collection variable
+Установите переменную коллекции
+
+pm.collectionVariables.set("variable_key", "variable_value");
+=========
+
+
+Clear an environment variable
+Очистите переменную окружения
+
+pm.environment.unset("variable_key");
+=========
+
+
+Clear a global variable
+Очистить глобальную переменную
+
+pm.globals.unset("variable_key");
+=========
+
+
+Clear a collection variable
+Очистить переменную коллекции
+
+pm.collectionVariables.unset("variable_key");
+=========
+
+
+Send a request
+Отправить запрос
+
+pm.sendRequest("https://postman-echo.com/get", function (err, response) {
+    console.log(response.json());
+});
+=========
+
+
+Status code: Code is 200
+Код состояния: Код равен 200
+
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+=========
+
+
+Response body: Contains string
+Текст ответа: Содержит строку
+
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("string_you_want_to_search");
+});
+=========
+
+
+Response body: JSON value check
+Тело ответа: проверка значения JSON
+
+pm.test("Your test name", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.value).to.eql(100);
+});
+=========
+
+
+Response body: Is equal to a string
+Тело ответа: Равно строке
+
+pm.test("Body is correct", function () {
+    pm.response.to.have.body("response_body_string");
 });
 
 
-Тело ответа равно строке
 
-pm.test("Body is equal to string", function(){
+pm.response.to.have.body("OK");
+pm.response.to.have.body('{"success"=true}');
 
-pm.response.to.have.body("string you want to check");
- 
+
+=========
+
+
+Response headers: Content-Type header check
+Заголовки ответа: Проверка заголовка типа содержимого
+
+pm.test("Content-Type is present", function () {
+    pm.response.to.have.header("Content-Type");
+});
+=========
+
+
+Response time is less than 200ms
+Время отклика менее 200 мс
+
+pm.test("Response time is less than 200ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(200);
+});
+=========
+
+
+Status code: Successful POST request
+Код состояния: Успешный запрос POST
+
+pm.test("Successful POST request", function () {
+    pm.expect(pm.response.code).to.be.oneOf([201, 202]);
+});
+=========
+
+
+Status code: Code name has string
+Код состояния: Кодовое имя содержит строку
+
+pm.test("Status code name has string", function () {
+    pm.response.to.have.status("Created");
+});
+
+=========
+
+
+Response body: Convert XML body to a JSON Object
+Тело ответа: Преобразовать тело XML в объект JSON
+
+var jsonObject = xml2Json(responseBody);
+
+
+=========
+
+
+Use Tiny Validator for JSON data
+использовать Tiny Validator для проверки структуры json в ответе
+
+
+
+var schema = {
+    "items": {
+        "type": "boolean"
+    }
+};
+
+var data1 = [true, false];
+var data2 = [true, 123];
+
+pm.test('Schema is valid', function () {
+    pm.expect(tv4.validate(data1, schema)).to.be.true;
+    pm.expect(tv4.validate(data2, schema)).to.be.true;
+});
+
+Проверка структуры json в ответе.
+
+можно проверить через Tiny Validator либо Ajv JSON schema validator
+Ajv JSON schema validator не требует первоначального парсинга (let jsonData = pm.response.json();) и более подробно описывает ошибки
+Tiny Validator считается уже устаревшим
+
+
+Use Tiny Validator
+
+1. Спарсить json
+let respons = pm.response.json();
+
+2. создаем переменную schema
+в нее вставляем валидационную схему json, из респонса, из (https://jsonschema.net/app/schemas/360654) или других источников
+let shema = {...}
+
+3. выбераем снипет 
+Use Tiny Validator for Json Data
+убираем ненужные строки
+
+pm.test('tv4: Schema is valid', function () {
+    pm.expect(tv4.validate(respons, schema)).to.be.true;
 });
 
 
-Статус код
-Код, относящийся к статус кодам в Postman
+Use Ajv JSON schema validator
 
-Один статус код
-
-pm.response.to.have.status(status_code);
-
-Несколько статус кодов
-
-pm.expect(pm.response.code).to.be.oneOf([status_code, status_code]);
-
-
-Время ответа
-pm.expect(pm.response.responseTime.to.be.below(time));
-
-
-Проверка значения JSON
-pm.test("Your_Test_Name", function(){
-
-var jsonData = pm.response.json();
-
-pm.expect(jsonData.value).to.eql(value);
-
+pm.test('Ajv: Schema is valid', function() {
+  pm.response.to.have.jsonSchema(schema);
 });
 
 
-Заголовок содержит Content-Type
-pm.test("Your_Test_Name", function(){
-
-pm.response.to.have.header("Content-Type");
-
-});
 
 
-Пример
+
+
+
+==============================================================
+
+
+
+
+
+другие куски кода
+
+
+
+
+
+
+// вывод в консоль элемента по порядковому номеру (из списка) (в JSON это не сработает, т.к. JSON не нумеруем)
+
+console.log(jsonData.salary[0])
+
+из массива выводится по индексу элемента в списке [0][3][5] и тд 
+из обьекта JSON выводится по имени ключа через точечную запись (familly.children.boy) или по аналогии с массивом [familly][children][boy]
+
+
+
+
+
+
+
+
+Установка следующего запроса 
+
+postman.setNextRequest("Request Name");
+
+
+
+
+Прекратить выполнение запроса
+
+postman.setNextRequest(null);
+
+
+
+
+
+
 Проверить, что у параметра dog есть параметры(ключ) name.
 
 pm.test("check dog name", function () {
@@ -108,40 +316,48 @@ pm.test("check dog name", function () {
 });
 
 
+
+
+
 Ответ содержит куки sessionID
+
 pm.expect(pm.cookies.has('sessionID')).to.be.true;
 
 
-Тело ответа
-Код относящийся к телу ответа
-
-Точное совпадение
-
-pm.response.to.have.body("OK");
-pm.response.to.have.body('{"success"=true}');
-
-Частичное совпадение
-
-pm.expect(pm.response.text()).to.include('ToolsQA');
 
 
-Отправить асинхронный запрос
-pm.sendRequest("https://postman-echo.com/get", function(err, response){
 
-console.log(response.json());
 
+Найти число в массиве
+
+pm.test(“Number included”, function(){
+pm.expect([1,2,3]).to.include(3);
 });
 
 
-JSON ответ 
-Распарсить тело
 
-var jsonData = pm.response.json();
+
+
+Проверить, пустой ли массив
+
+pm.test(“Empty Array”, function(){
+pm.expect([2]).to.be.an(‘array’).that.is.empty;
+});
+
+
+
+
+
+
 Проверить количество массивов в ответе
 
 pm.test("ISBN Count", function () {
 pm.expect(2).to.eql(pm.response.json().arrayName.length);
 });
+
+
+
+
 
 Проверить конкретное значение внутри массива
 
@@ -160,118 +376,34 @@ pm.expect(true).to.eql(result);
 });
 В двух приведенных выше примерах использовался Javascript, поскольку Postman Sandbox работает с javascript. Этот код не имеет конкретного отношения к Postman. 
 
-Проверить значение
-
-pm.expect(jsonData.age).to.eql(value);
-
-pm.expect(jsonData.name).to.eql("string");
-
-
-Преобразование тела XML в объект JSON
-
-var jsonObject = xml2Json(responseBody);
-
-
-Рабочие процессы
-Установка следующего запроса 
-
-postman.setNextRequest("Request Name");
-
-
-
-Прекратить выполнение запроса
-
-postman.setNextRequest(null);
-
-
-Библиотека ассертов Chai
-Найти число в массиве
-
-pm.test(“Number included”, function(){
-pm.expect([1,2,3]).to.include(3);
-});
-
-
-Проверить, пустой ли массив
-
-pm.test(“Empty Array”, function(){
-pm.expect([2]).to.be.an(‘array’).that.is.empty;
-});
-
-
-
--======================================================================================
-
-
-
-ПАРСИНГ
-
-// Спарсить response body в json.
-
-var jsonData = pm.response.json();
-// Спарсить request. (POST/GET) (переменные в Body - form-data)
-
-var req = request.data
-
-// Спарсить request. (POST/GET) (переменные в Body - raw(JSON))
-
-var req = JSON.parse(pm.request.body);
-
-//Спарсить request.(GET)
-
-var req_url = pm.request.url.query.toObject();
-
-
-
-
-
-//проверка схемы JSON
-
-var schema = {
-    "type": "object",
-    "required": [
-        "age",
-        "name",
-        "salary"
-    ],
-    "properties": {
-        "age": {
-            "type": "integer",
-            },
-        "salary": {
-            "type": "array",
-            "items": {
-                "anyOf": [{
-                    "type": "integer",
-                   },
-                {
-                    "type": "string",
-                }]
-            },
-        }
-    },
-};
-
-pm.test('Schema is valid', function () {
-    pm.expect(tv4.validate(jsonData, schema)).to.be.true;
-});
-
-//или (без первоначального парсинга response в переменную) + более распианные ошибки   
-
-pm.test('Schema is valid', function() {
-  pm.response.to.have.jsonSchema(schema);
-});
 
 
 
 
 
 
-// пример построения теста сравнения
 
-pm.test("Текстовка", function () {
-    pm.expect(jsonData.name).to.eql("Anna");
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // сравнение
@@ -281,50 +413,26 @@ pm.test("Текстовка", function () {
 .to.above ">"
 
 
-// ожидание
-
-pm.expect
-
-
-
 // принадлежность к типу
 
 .to.be.a('number');
 
 
-// наличие значения
+// наличие значения(ключа)
 
 to.have.property
 
 
 
-// статус в ответе 200 (например)
-
-pm.response.to.have.status(200)
-
-
-// вывод в консоль элемента по порядковому номеру (из списка) (в JSON это не сработает, т.к. JSON не нумеруем)
-
-console.log(jsonData.salary[0])
-environment.set
-environment.get
 
 
 
-// Создать в окружении переменную name
-
-pm.environment.set("name");
-
-
-// Создать в окружении переменную name и одновременно передать в нее переменную name из запроса URL
-
-pm.environment.set("name", req_url.name);
 
 
 
-//// получить из окружения переменную name
 
-pm.environment.get("name");
+
+
 
 
 
@@ -385,73 +493,3 @@ raw JSON (Там где String "")
 
 
 
-
-
-
-
-
-=============================
-
-
-
-парсинг- перевод строки JSON в обьект JavaScript
-конквертизация - обратный процесс парсингу
-let person = JSON.stringify(____)
-let person = String(____)
-
-
-Спарсить request:
-GET METHOD:
-let req_data = pm.request.url.query.toObject();
-
-(POST/GET) METHOD:
-let req = request.data;         (если запрос отправляется в Body - form-data)
-let req = JSON.parse(pm.request.body);      (если запрос отправляется в Body - raw(JSON))
-
-
-
-Спарсить respons
-let resp = JSON.parse(ResponsBody)
-let resp = pm.response.json()
-
-
-
-
-============================================================
-
-
-Проверка структуры json в ответе.
-
-можно проверить через Tiny Validator либо Ajv JSON schema validator
-Ajv JSON schema validator не требует первоначального парсинга (let jsonData = pm.response.json();) и более подробно описывает ошибки
-Tiny Validator считается уже устаревшим
-
-
-
-
-Use Tiny Validator
-
-1. Спарсить json
-let respons = pm.response.json();
-
-2. создаем переменную schema
-в нее вставляем валидационную схему json, из респонса, из (https://jsonschema.net/app/schemas/360654) или других источников
-let shema = {...}
-
-3. выбераем снипет 
-Use Tiny Validator for Json Data
-убираем ненужные строки
-
-pm.test('tv4: Schema is valid', function () {
-    pm.expect(tv4.validate(respons, schema)).to.be.true;
-});
-
-
-
-
-
-Use Ajv JSON schema validator
-
-pm.test('Ajv: Schema is valid', function() {
-  pm.response.to.have.jsonSchema(schema);
-});

@@ -1,0 +1,276 @@
+{
+	"id": "37037d0f-4617-4166-938d-b7ffc3a81396",
+	"name": "Gr_32_HW_3",
+	"timestamp": "2023-11-11T21:25:40.071Z",
+	"collection_id": "20820839-4c814b96-7abd-4a1d-831b-f0d4ee5e6146",
+	"folder_id": 0,
+	"environment_id": "20820839-81f3419d-bb32-4e53-92c6-85f466c25bdb",
+	"totalPass": 22,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-11-11T21:25:36.666Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "3a1aa3ac-5eef-47d4-8284-099a075fb785",
+			"name": "login",
+			"url": "http://162.55.220.72:5005/login",
+			"time": 143,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				143
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "28cc38d2-29fb-4543-a06f-cd8595fe335a",
+			"name": "user_info",
+			"url": "http://162.55.220.72:5005/user_info",
+			"time": 107,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"tv4: Schema is valid": true,
+				"Ajv: Schema is valid2": true,
+				"checking the coefficient": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"tv4: Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Ajv: Schema is valid2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"checking the coefficient": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				107
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"tv4: Schema is valid": true,
+					"Ajv: Schema is valid2": true,
+					"checking the coefficient": true
+				}
+			]
+		},
+		{
+			"id": "9dcfe006-255e-4bd0-846b-c154486f17f2",
+			"name": "new_data",
+			"url": "http://162.55.220.72:5005/new_data",
+			"time": 138,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"200 ok": true,
+				"tv4 Schema is valid": true,
+				"ajv Body is correct": true,
+				"salary * 1": true,
+				"salary * 2": true,
+				"salary * 3": true,
+				"salary[2]> salary[1]": true,
+				"salary[2] > salary[1]": true
+			},
+			"testPassFailCounts": {
+				"200 ok": {
+					"pass": 1,
+					"fail": 0
+				},
+				"tv4 Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"ajv Body is correct": {
+					"pass": 1,
+					"fail": 0
+				},
+				"salary * 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"salary * 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"salary * 3": {
+					"pass": 1,
+					"fail": 0
+				},
+				"salary[2]> salary[1]": {
+					"pass": 1,
+					"fail": 0
+				},
+				"salary[2] > salary[1]": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				138
+			],
+			"allTests": [
+				{
+					"200 ok": true,
+					"tv4 Schema is valid": true,
+					"ajv Body is correct": true,
+					"salary * 1": true,
+					"salary * 2": true,
+					"salary * 3": true,
+					"salary[2]> salary[1]": true,
+					"salary[2] > salary[1]": true
+				}
+			]
+		},
+		{
+			"id": "2dbf4fb3-4dec-40af-9a15-8b55443a105e",
+			"name": "test_pet_info",
+			"url": "http://162.55.220.72:5005/test_pet_info",
+			"time": 112,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"200 ok": true,
+				"tv4 Schema is valid": true,
+				"Ajv: Schema is valid": true,
+				"check daily_food": true,
+				"check daily_sleep": true
+			},
+			"testPassFailCounts": {
+				"200 ok": {
+					"pass": 1,
+					"fail": 0
+				},
+				"tv4 Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Ajv: Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check daily_food": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check daily_sleep": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				112
+			],
+			"allTests": [
+				{
+					"200 ok": true,
+					"tv4 Schema is valid": true,
+					"Ajv: Schema is valid": true,
+					"check daily_food": true,
+					"check daily_sleep": true
+				}
+			]
+		},
+		{
+			"id": "881e3aa9-8d15-43a0-8bac-9865a1421833",
+			"name": "get_test_user",
+			"url": "http://162.55.220.72:5005/get_test_user",
+			"time": 100,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"200 ok": true,
+				"tv4 Schema is valid": true,
+				"ajv Schema is valid": true,
+				"check name": true,
+				"check age": true
+			},
+			"testPassFailCounts": {
+				"200 ok": {
+					"pass": 1,
+					"fail": 0
+				},
+				"tv4 Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"ajv Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check age": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				100
+			],
+			"allTests": [
+				{
+					"200 ok": true,
+					"tv4 Schema is valid": true,
+					"ajv Schema is valid": true,
+					"check name": true,
+					"check age": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 600,
+	"collection": {
+		"requests": [
+			{
+				"id": "3a1aa3ac-5eef-47d4-8284-099a075fb785",
+				"method": "POST"
+			},
+			{
+				"id": "28cc38d2-29fb-4543-a06f-cd8595fe335a",
+				"method": "POST"
+			},
+			{
+				"id": "9dcfe006-255e-4bd0-846b-c154486f17f2",
+				"method": "POST"
+			},
+			{
+				"id": "2dbf4fb3-4dec-40af-9a15-8b55443a105e",
+				"method": "POST"
+			},
+			{
+				"id": "881e3aa9-8d15-43a0-8bac-9865a1421833",
+				"method": "POST"
+			}
+		]
+	}
+}
