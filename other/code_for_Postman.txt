@@ -130,7 +130,9 @@ pm.test("Status code is 200", function () {
 
 
 Response body: Contains string
-Текст ответа: Содержит строку
+Текст ответа: Содержит строку.
+содержит ли тело ответа строку
+Это не покажет , где была обнаружена строка, потому что она выполняет проверку всего тела ответа.
 
 pm.test("Body matches string", function () {
     pm.expect(pm.response.text()).to.include("string_you_want_to_search");
@@ -166,9 +168,17 @@ pm.response.to.have.body('{"success"=true}');
 
 Response headers: Content-Type header check
 Заголовки ответа: Проверка заголовка типа содержимого
+проверить наличие заголовка ответа
 
 pm.test("Content-Type is present", function () {
     pm.response.to.have.header("Content-Type");
+});
+
+
+проверить заголовок ответа, имеющий определенное значение:
+
+pm.test("Content-Type header is application/json", () => {
+  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');
 });
 =========
 
@@ -184,6 +194,7 @@ pm.test("Response time is less than 200ms", function () {
 
 Status code: Successful POST request
 Код состояния: Успешный запрос POST
+проверить, является ли код состояния одним из набора, можно включить их все (коды ответа) в массив и использовать oneOf:
 
 pm.test("Successful POST request", function () {
     pm.expect(pm.response.code).to.be.oneOf([201, 202]);
@@ -272,6 +283,8 @@ pm.test('Ajv: Schema is valid', function() {
 
 
 
+
+
 другие куски кода
 
 
@@ -290,17 +303,38 @@ console.log(jsonData.salary[0])
 
 
 
+// сравнение
+
+.to.eql "="
+.to.below "<"  
+.to.above ">"
 
 
 
-Установка следующего запроса 
+
+// принадлежность к типу
+
+.to.be.a('number');
+
+
+
+
+// наличие значения(ключа) в обьекте
+
+to.have.property
+
+
+
+
+
+// Установка следующего запроса 
 
 postman.setNextRequest("Request Name");
 
 
 
 
-Прекратить выполнение запроса
+// Прекратить выполнение запроса
 
 postman.setNextRequest(null);
 
@@ -309,7 +343,7 @@ postman.setNextRequest(null);
 
 
 
-Проверить, что у параметра dog есть параметры(ключ) name.
+// Проверить, что у параметра dog есть параметры(ключ) name.
 
 pm.test("check dog name", function () {
     pm.expect(respData.family.pets.dog).to.have.property('name');
@@ -319,16 +353,85 @@ pm.test("check dog name", function () {
 
 
 
-Ответ содержит куки sessionID
 
-pm.expect(pm.cookies.has('sessionID')).to.be.true;
+// проверить заголовок ответа, имеющий определенное значение:
+
+pm.test("Content-Type header is application/json", () => {
+  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');
+});
 
 
 
 
 
 
-Найти число в массиве
+// Тестирование файлов cookie
+Примечание переводчика: По сути это заголовок  в виде строки c данными разделенными ";".
+Вы можете проверить, присутствует ли файл cookie в ответе:
+
+pm.test("Cookie JSESSIONID is present", () => {
+  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;
+});
+
+Вы также можете проверить наличие определенного значения файла cookie:
+
+pm.test("Cookie isLoggedIn has value 1", () => {
+  pm.expect(pm.cookies.get('isLoggedIn')).to.eql('1');
+});
+
+
+
+
+
+
+// Проверка типа значения
+Вы можете проверить тип любой части ответа.
+/* ответ имеет такую структуру:
+
+{
+  "name": "Jane",
+  "age": 29,
+  "hobbies": [
+    "skating",
+    "painting"
+  ],
+  "email": null
+}
+
+
+const jsonData = pm.response.json();
+
+pm.test("Test data type of the response", () => {
+  pm.expect(jsonData).to.be.an("object");
+  pm.expect(jsonData.name).to.be.a("string");
+  pm.expect(jsonData.age).to.be.a("number");
+  pm.expect(jsonData.hobbies).to.be.an("array");
+  pm.expect(jsonData.website).to.be.undefined;
+  pm.expect(jsonData.email).to.be.null;
+});
+
+
+
+
+
+
+
+
+// проверить активную (выбранную в данный момент) среду в Postman.
+
+pm.test("Check the active environment", () => {
+  pm.expect(pm.environment.name).to.eql("Production");
+});
+
+
+
+
+
+
+
+
+
+// Найти число в массиве
 
 pm.test(“Number included”, function(){
 pm.expect([1,2,3]).to.include(3);
@@ -338,7 +441,9 @@ pm.expect([1,2,3]).to.include(3);
 
 
 
-Проверить, пустой ли массив
+
+
+// Проверить, пустой ли массив
 
 pm.test(“Empty Array”, function(){
 pm.expect([2]).to.be.an(‘array’).that.is.empty;
@@ -349,7 +454,9 @@ pm.expect([2]).to.be.an(‘array’).that.is.empty;
 
 
 
-Проверить количество массивов в ответе
+
+
+// Проверить количество массивов в ответе
 
 pm.test("ISBN Count", function () {
 pm.expect(2).to.eql(pm.response.json().arrayName.length);
@@ -359,7 +466,66 @@ pm.expect(2).to.eql(pm.response.json().arrayName.length);
 
 
 
-Проверить конкретное значение внутри массива
+
+
+
+
+// Проверка, что значение находится в наборе
+
+Вы можете проверить значение ответа по списку допустимых параметров.(["Subscriber", "Customer", "User"])
+
+pm.test("Value is in valid list", () => {
+  pm.expect(pm.response.json().type)
+    .to.be.oneOf(["Subscriber", "Customer", "User"]);
+});
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Проверка, что объект содержится в ответе
+Вы можете проверить, является ли объект частью родительского объекта.
+
+/*
+ответ имеет следующую структуру:
+{
+  "id": "d8893057-3e91-4cdd-a36f-a0af460b6373",
+  "created": true,
+  "errors": []
+}
+*/
+
+pm.test("Object is contained", () => {
+  const expectedObject = {
+    "created": true,
+    "errors": []
+  };
+  pm.expect(pm.response.json()).to.deep.include(expectedObject);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Проверить конкретное значение внутри массива
 
 В этом примере проверяется конкретный номер ISBN среди всех книг, полученных в ответе, и возвращается значение true, если оно найдено.
 
@@ -385,57 +551,6 @@ pm.expect(true).to.eql(result);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// сравнение
-
-.to.eql "="
-.to.below "<"  
-.to.above ">"
-
-
-// принадлежность к типу
-
-.to.be.a('number');
-
-
-// наличие значения(ключа)
-
-to.have.property
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Написать цикл который выведет в консоль по порядку элементы списка из параметра salary. []-список
 
 var n = 0;
@@ -451,13 +566,12 @@ n++
 
 
 
-
-
 // Написать цикл который выведет в консоль по порядку элементы списка из параметра person. {}-JSON
 
 for (key in jsonData.person) {
     console.log( key + ": " + jsonData.person[key])
 };
+
 
 
 
