@@ -8,9 +8,10 @@ let person = String(____)
 Спарсить request:
 GET METHOD:
 let req_data = pm.request.url.query.toObject();
+let req = request.data;   
 
-(POST/GET) METHOD:
-let req = request.data;         (если запрос отправляется в Body - form-data)
+(POST) METHOD:
+let req = request.data;         (если запрос отправляется в Post Body - form-data)
 let req = JSON.parse(pm.request.body);      (если запрос отправляется в Body - raw(JSON))
 
 
@@ -323,6 +324,12 @@ console.log(jsonData.salary[0])
 
 to.have.property
 
+pm.test("check dog name", function () {
+    pm.expect(respData.family.pets.dog).to.have.property('name');
+});
+Проверить, что у параметра dog есть параметры(ключ) name.
+
+
 
 
 
@@ -342,12 +349,6 @@ postman.setNextRequest(null);
 
 
 
-
-// Проверить, что у параметра dog есть параметры(ключ) name.
-
-pm.test("check dog name", function () {
-    pm.expect(respData.family.pets.dog).to.have.property('name');
-});
 
 
 
@@ -551,7 +552,23 @@ pm.expect(true).to.eql(result);
 
 
 
-// Написать цикл который выведет в консоль по порядку элементы списка из параметра salary. []-список
+// Написать цикл который выведет в консоль по порядку элементы списка из параметра salary.
+
+{
+    "age": 35,
+    "name": "Alesandro",
+    "salary": [
+        1000,
+        "2000",
+        "3000"
+    ]
+}
+
+
+for(i=0; i <= 2; i++){
+    console.log(resp.salary[i])
+};
+
 
 var n = 0;
 while (n < (jsonData.salary).length) 
@@ -566,11 +583,47 @@ n++
 
 
 
+
+
+
 // Написать цикл который выведет в консоль по порядку элементы списка из параметра person. {}-JSON
+
+{
+    "person": {
+        "u_age": 35,
+        "u_name": [
+            "Alesandro",
+            1000,
+            35
+        ],
+        "u_salary_5_years": 4200.0
+    },
+    "qa_salary_after_1.5_year": 3300.0,
+    "qa_salary_after_12_months": 2700.0,
+    "qa_salary_after_3.5_years": 3800.0,
+    "qa_salary_after_6_months": 2000,
+    "start_qa_salary": 1000
+}
+
+
+for (let value of Object.values(resp.person)) {
+  console.log(value); 
+}
+
+for(var key in respData.salary){
+   console.log(respData.salary[key])
+}
 
 for (key in jsonData.person) {
     console.log( key + ": " + jsonData.person[key])
 };
+
+
+
+
+
+
+
 
 
 
