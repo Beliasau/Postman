@@ -7,7 +7,7 @@ let person = String(____)
 
 Спарсить request:
 GET METHOD:
-let req_data = pm.request.url.query.toObject();      (запрос в URl параметрах)
+let req = pm.request.url.query.toObject();      (запрос в URl параметрах)
 let req = request.data;   
 
 (POST) METHOD:
@@ -52,7 +52,7 @@ pm.globals.get("variable_key");
 
 
 Get a variable
-Получить переменную
+Получить переменную    (локальная)
 
 pm.variables.get("variable_key");
 =========
