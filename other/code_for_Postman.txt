@@ -131,7 +131,7 @@ pm.test("Status code is 200", function () {
 
 
 Response body: Contains string
-Текст ответа: Содержит строку.
+Текст ответа: Содержит строку.(ключ)
 содержит ли тело ответа строку
 Это не покажет , где была обнаружена строка, потому что она выполняет проверку всего тела ответа.
 
@@ -148,6 +148,10 @@ pm.test("Your test name", function () {
     var jsonData = pm.response.json();
     pm.expect(jsonData.value).to.eql(100);
 });
+
+проверка чтобы ключ соответствовал конкретному значению\шаблону
+
+
 =========
 
 
@@ -163,6 +167,13 @@ pm.test("Body is correct", function () {
 pm.response.to.have.body("OK");
 pm.response.to.have.body('{"success"=true}');
 
+to.have.property
+
+pm.test("check dog name", function () {
+    pm.expect(respData.family.pets.dog).to.have.property('name');
+});
+Проверить, что у параметра dog есть параметры(ключ) name.
+проверка что у обьекта есть конкретный ключ
 
 =========
 
