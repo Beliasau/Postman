@@ -156,7 +156,7 @@ pm.test("Your test name", function () {
 
 
 Response body: Is equal to a string
-Тело ответа: Равно строке
+Тело ответа: Равно строке (ключу)
 
 pm.test("Body is correct", function () {
     pm.response.to.have.body("response_body_string");
@@ -678,7 +678,20 @@ raw JSON (Там где String "")
 
 
 
+=========
+hw
 
 
+// 17. Проверить, что параметр qa_salary_after_1.5_year равен salary*3.3 из request (salary забрать из request.)
+
+pm.test("salary 1.5_year = salary*3.3", function () {
+    pm.expect(resp["qa_salary_after_1.5_year"]).to.eql(3.3*(req.salary));
+});
+
+// 18. Проверить, что параметр qa_salary_after_3.5_years равен salary*3.8 из request (salary забрать из request.)
+
+pm.test("salary 3.5_year = salary*3.8", function () {
+    pm.expect(resp["qa_salary_after_3.5_years"]).to.eql(3.8*(req.salary));
+});
 
 
